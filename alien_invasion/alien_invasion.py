@@ -54,7 +54,7 @@ class AlienInvasion:
         """start main loop of game"""
 
         while True:
-            # watch for events
+            # watch for events that happen ingame
             _check_events(self)
             self.ship.update()
             # redraw screen on each iteration of while loop
