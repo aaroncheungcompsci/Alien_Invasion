@@ -2,17 +2,6 @@ import pygame
 from pygame.sprite import Sprite
 
 
-def update(self):
-    """update bullet position on screen"""
-    self.y -= self.settings.bullet_speed
-    self.rect.y = self.y
-
-
-def draw_bullet(self):
-    """draw bullet"""
-    pygame.draw.rect(self.screen, self.color, self.rect)
-
-
 class Bullet(Sprite):
     """class to keep track of bullet objects"""
     def __init__(self, ai_game):
@@ -27,6 +16,15 @@ class Bullet(Sprite):
 
         # store bullet's position
         self.y = float(self.rect.y)
+
+    def update(self):
+        """update bullet position on screen"""
+        self.y -= self.settings.bullet_speed
+        self.rect.y = self.y
+
+    def draw_bullet(self):
+        """draw bullet"""
+        pygame.draw.rect(self.screen, self.color, self.rect)
 
 
 
