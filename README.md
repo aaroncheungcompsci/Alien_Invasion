@@ -3,3 +3,8 @@ This is a project I have decided to start up in correlation with the Battleship 
 is to exercise OOP concepts in a different language; in this case, it is Python.
 
 This project will also help me exercise GitHub functions.
+
+## Sources 
+Here is the book I used as well as the resources for it. 
+https://nostarch.com/pythoncrashcourse2e
+https://github.com/ehmatthes/pcc
