@@ -65,6 +65,12 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
+
+            # remove bullets that go off the screen
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+            # print(len(self.bullets))
             # redraw screen on each iteration of while loop
             self._update_screen()
 

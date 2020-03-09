@@ -5,6 +5,8 @@ is to exercise OOP concepts in a different language; in this case, it is Python.
 This project will also help me exercise GitHub functions.
 
 ## Sources 
-Here is the book I used as well as the resources for it. 
-https://nostarch.com/pythoncrashcourse2e
-https://github.com/ehmatthes/pcc
+Here is the book I used as well as the resources for it.
+<ul>
+  <li>https://nostarch.com/pythoncrashcourse2e</li>
+  <li>https://github.com/ehmatthes/pcc</li>
+</ul>
