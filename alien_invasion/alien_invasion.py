@@ -26,8 +26,19 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """create bullet and add to group of bullets"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        # limits amount of bullets to show on screen
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        """updates position of bullets and gets rid of old bullets"""
+        self.bullets.update()
+
+        # remove bullets that go off the screen
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     # _ before name means "private" or internal use in python
     def _check_events(self):
@@ -64,12 +75,7 @@ class AlienInvasion:
             # watch for events that happen ingame
             self._check_events()
             self.ship.update()
-            self.bullets.update()
-
-            # remove bullets that go off the screen
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+            self._update_bullets()
             # print(len(self.bullets))
             # redraw screen on each iteration of while loop
             self._update_screen()
