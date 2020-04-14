@@ -41,10 +41,23 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    def _create_alien(self, alien_number):
+        # create alien and place in row
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        self.aliens.add(alien)
+
     def _create_fleet(self):
         """create fleet of aliens"""
+        # create first row of aliens
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+        for alien_number in range(number_aliens_x):
+            self._create_alien(alien_number)
 
     # _ before name means "private" or internal use in python
     def _check_events(self):
