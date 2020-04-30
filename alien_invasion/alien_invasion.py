@@ -89,6 +89,10 @@ class AlienInvasion:
 
         pygame.display.flip()
 
+    def _update_aliens(self):
+        """update all positions of aliens"""
+        self.aliens.update()
+
     def __init__(self):
         pygame.init()
         self.settings = Settings()
@@ -111,6 +115,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             # print(len(self.bullets))
             # redraw screen on each iteration of while loop
             self._update_screen()
