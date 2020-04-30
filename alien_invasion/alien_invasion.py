@@ -70,6 +70,19 @@ class AlienInvasion:
             for alien_number in range(number_aliens_x):
                 self._create_alien(alien_number, row_number)
 
+    def _check_fleet_edges(self):
+        """respond appropriately if aliens reach edge of window"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """drop entire fleet and change direction"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
     # _ before name means "private" or internal use in python
     def _check_events(self):
         for event in pygame.event.get():
@@ -91,6 +104,7 @@ class AlienInvasion:
 
     def _update_aliens(self):
         """update all positions of aliens"""
+        self._check_fleet_edges()
         self.aliens.update()
 
     def __init__(self):
