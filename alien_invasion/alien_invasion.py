@@ -41,6 +41,8 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
     def _create_alien(self, alien_number, row_number):
         # create alien and place in row
         alien = Alien(self)
@@ -70,6 +72,19 @@ class AlienInvasion:
             for alien_number in range(number_aliens_x):
                 self._create_alien(alien_number, row_number)
 
+    def _check_fleet_edges(self):
+        """respond appropriately if aliens reach edge of window"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """drop entire fleet and change direction"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
     # _ before name means "private" or internal use in python
     def _check_events(self):
         for event in pygame.event.get():
@@ -88,6 +103,11 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
 
         pygame.display.flip()
+
+    def _update_aliens(self):
+        """update all positions of aliens"""
+        self._check_fleet_edges()
+        self.aliens.update()
 
     def __init__(self):
         pygame.init()
@@ -111,6 +131,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             # print(len(self.bullets))
             # redraw screen on each iteration of while loop
             self._update_screen()
