@@ -121,25 +121,40 @@ class AlienInvasion:
 
         # look for collisions between the ship and alien ships
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
-            # placeholder text
             # print("Ship has been hit!")
             self._ship_hit()
 
+        # check if any aliens hit the bottom
+        self._check_aliens_bottom()
+
+
+    def _check_aliens_bottom(self):
+        """check if any aliens have reached the bottom of the screen"""
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                # same treatment as if the ship got hit
+                self._ship_hit()
+                break
+
     def _ship_hit(self):
         """actions for ship being hit by an enemy alien ship"""
-        # decrement ships
-        self.stats.ships_left -= 1
+        if self.stats.ships_left > 0:
+            # decrement ships
+            self.stats.ships_left -= 1
 
-        # clear screen
-        self.aliens.empty()
-        self.bullets.empty()
+            # clear screen
+            self.aliens.empty()
+            self.bullets.empty()
 
-        # new fleet and centers ship
-        self._create_fleet()
-        self.ship.center_ship()
+            # new fleet and centers ship
+            self._create_fleet()
+            self.ship.center_ship()
 
-        # pausing to let player see collision
-        sleep(0.5)
+            # pausing to let player see collision
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def __init__(self):
         pygame.init()
@@ -164,9 +179,11 @@ class AlienInvasion:
         while True:
             # watch for events that happen ingame
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
             # print(len(self.bullets))
             # redraw screen on each iteration of while loop
             self._update_screen()
