@@ -127,7 +127,6 @@ class AlienInvasion:
         # check if any aliens hit the bottom
         self._check_aliens_bottom()
 
-
     def _check_aliens_bottom(self):
         """check if any aliens have reached the bottom of the screen"""
         screen_rect = self.screen.get_rect()
