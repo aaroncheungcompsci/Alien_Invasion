@@ -112,8 +112,23 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """Start a new game when Play button is pressed"""
-        if self.play_button.rect.collidepoint(mouse_pos):
+        # button click will remove play button from screen
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            self.stats.reset_stats()
             self.stats.game_active = True
+
+            # get rid of remaining objects in screen
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # create new fleet + center ship
+            self._create_fleet()
+            self.ship.center_ship()
+
+            # hiding mouse cursor (not needed but ill put it in here for reference)
+            # pygame.mouse,set_visible(False)
+
 
     def _update_screen(self):
         self.screen.fill(self.bg_color)
@@ -166,6 +181,8 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.stats.game_active = False
+            # sets mouse to visible (only uncomment if mouse is hidden in _check_play_button
+            # pygame.mouse.set_visible(True)
 
     def __init__(self):
         pygame.init()
