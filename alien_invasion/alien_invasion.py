@@ -53,6 +53,7 @@ class AlienInvasion:
             # Destroy existing bullets and creates new fleet when last alien is destroyed
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _create_alien(self, alien_number, row_number):
         # create alien and place in row
@@ -115,7 +116,10 @@ class AlienInvasion:
         # button click will remove play button from screen
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
+            # reset game settings
+            self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
+
             self.stats.game_active = True
 
             # get rid of remaining objects in screen
@@ -128,7 +132,6 @@ class AlienInvasion:
 
             # hiding mouse cursor (not needed but ill put it in here for reference)
             # pygame.mouse,set_visible(False)
-
 
     def _update_screen(self):
         self.screen.fill(self.bg_color)
@@ -202,7 +205,6 @@ class AlienInvasion:
         # Make the play button
         self.play_button = Button(self, "Play")
         self.bg_color = (230, 230, 230)
-
 
     def run_game(self):
         """start main loop of game"""
