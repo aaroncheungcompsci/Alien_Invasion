@@ -21,6 +21,7 @@ class Scoreboard:
 
         # prepare initial images
         self.prep_score()
+        self.prep_level()
         self.prep_ships()
 
     def prep_score(self):
@@ -44,8 +45,18 @@ class Scoreboard:
             ship.rect.y = 10
             self.ships.add(ship)
 
+    def prep_level(self):
+        """Draw level number"""
+        level_str = "Level: " + str(self.stats.level)
+        self.level_image = self.font.render(level_str, True, self.text_color, self.settings.bg_color)
+
+        # position level below score
+        self.level_rect = self.level_image.get_rect()
+        self.level_rect.right = self.score_rect.right
+        self.level_rect.top = self.score_rect.bottom + 10
 
     def show_score(self):
         """Draw score and ships on screen"""
         self.screen.blit(self.score_image, self.score_rect)
+        self.screen.blit(self.level_image, self.level_rect)
         self.ships.draw(self.screen)

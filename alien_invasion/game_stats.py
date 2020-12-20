@@ -7,6 +7,7 @@ class GameStats:
         self.settings = ai_game.settings
         self.ships_left = self.settings.ship_limit
         self.score = 0
+        self.level = 1
 
         self.reset_stats()
         # Start game in an inactive state
@@ -16,3 +17,4 @@ class GameStats:
         """initialize stats that change during the game"""
         self.ships_left = self.settings.ship_limit
         self.score = 0
+        self.level = 1

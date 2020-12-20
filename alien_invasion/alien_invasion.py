@@ -62,6 +62,10 @@ class AlienInvasion:
             self._create_fleet()
             self.settings.increase_speed()
 
+            # increase level
+            self.stats.level += 1
+            self.sb.prep_level()
+
     def _create_alien(self, alien_number, row_number):
         # create alien and place in row
         alien = Alien(self)
@@ -129,6 +133,7 @@ class AlienInvasion:
 
             self.stats.game_active = True
             self.sb.prep_score()
+            self.sb.prep_level()
             self.sb.prep_ships()
 
             # get rid of remaining objects in screen
