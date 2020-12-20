@@ -129,6 +129,7 @@ class AlienInvasion:
 
             self.stats.game_active = True
             self.sb.prep_score()
+            self.sb.prep_ships()
 
             # get rid of remaining objects in screen
             self.aliens.empty()
@@ -137,6 +138,7 @@ class AlienInvasion:
             # create new fleet + center ship
             self._create_fleet()
             self.ship.center_ship()
+
 
             # hiding mouse cursor (not needed but ill put it in here for reference)
             # pygame.mouse,set_visible(False)
@@ -184,6 +186,7 @@ class AlienInvasion:
         if self.stats.ships_left > 0:
             # decrement ships
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # clear screen
             self.aliens.empty()
